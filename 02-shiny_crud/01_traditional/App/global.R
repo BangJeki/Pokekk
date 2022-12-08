@@ -9,22 +9,12 @@ library(lubridate)
 library(shinyFeedback)
 library(dplyr)
 library(dbplyr)
+library(DTedit)
 
-db_config <- config::get()$db
+conn <- dbConnect(SQLite(), "form.sqlite")
 
-# Create database connection
-conn <- dbConnect(
-  RSQLite::SQLite(),
-  dbname = db_config$dbname
-)
+conn <- dbConnect(RSQLite::SQLite(), "form.sqlite")
 
-# Stop database connection when application stops
-shiny::onStop(function() {
-  dbDisconnect(conn)
-})
 
-# Turn off scientific notation
-options(scipen = 999)
 
-# Set spinner type (for loading)
-options(spinner.type = 8)
+
